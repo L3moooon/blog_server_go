@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev": "go run main.go -env=dev",
+    "test": "go run main.go -env=test",
+    "prod": "go run main.go -env=prod",
+    "build": "go build -o blog_backend_go main.go"
   },
   "repository": {
     "type": "git",
