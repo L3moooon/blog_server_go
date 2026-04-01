@@ -1,7 +1,7 @@
 package router
 
 import (
-	"blog_backend_go/controllers/admin"
+	"blog_backend_go/api/admin"
 
 	"github.com/gin-gonic/gin"
 )
