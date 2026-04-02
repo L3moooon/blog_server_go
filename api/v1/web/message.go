@@ -5,10 +5,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetAllMessage(c *gin.Context) {
+type MessageApi struct {
+}
+
+func (s *MessageApi) GetAllMessage(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "GetAllMessage"})
 }
 
-func AddMessage(c *gin.Context) {
+func (s *MessageApi) AddMessage(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "AddMessage"})
 }

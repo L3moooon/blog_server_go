@@ -5,11 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetUserList(c *gin.Context) {
+type UserApi struct {
+}
+
+func (s *UserApi) GetUserList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "GetUserList"})
 }
 
-func GetUserById(c *gin.Context) {
+func (s *UserApi) GetUserById(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "GetUserById"})
 }
 

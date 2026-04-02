@@ -6,13 +6,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetAllLink(c *gin.Context) {
+type FriendshipApi struct {
+}
+
+func (s *FriendshipApi) GetAllLink(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "get article list",
 	})
 }
 
-func ApplyForLink(c *gin.Context) {
+func (s *FriendshipApi) ApplyForLink(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "get article",
 	})

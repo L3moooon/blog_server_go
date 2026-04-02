@@ -5,14 +5,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Visited(c *gin.Context) {
+type UserApi struct {
+}
+
+func (s *UserApi) Visited(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Visited"})
 }
 
-func TrackInfo(c *gin.Context) {
+func (s *UserApi) TrackInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "TrackInfo"})
 }
 
-func ModifyInfo(c *gin.Context) {
+func (s *UserApi) ModifyInfo(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "ModifyInfo"})
 }

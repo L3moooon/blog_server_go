@@ -12,3 +12,15 @@ type LoginRequest struct {
 type LoginResponse struct {
 	Token string `json:"token"`
 }
+
+type RegisterRequest struct {
+	Account  string `json:"account"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Code     string `json:"code"`
+}
+
+type RegisterResponse struct {
+	Token string `json:"token"`
+}

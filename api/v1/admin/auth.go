@@ -2,23 +2,17 @@ package admin
 
 import (
 	"blog_backend_go/config"
-	"blog_backend_go/model"
+	dto "blog_backend_go/internal/dto/admin"
+	"blog_backend_go/internal/model"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-type LoginReq struct {
-	LoginType int    `json:"loginType"` //1.用户名密码登录 2.邮箱验证码登录 3.手机验证码登录
-	Account   string `json:"account"`
-	Password  string `json:"password"`
-	Email     string `json:"email"`
-	Phone     string `json:"phone"`
-	Code      string `json:"code"`
-}
+type AuthApi struct{}
 
-func Login(c *gin.Context) {
-	var user LoginReq
+func (a *AuthApi) Login(c *gin.Context) {
+	var user dto.LoginRequest
 	err := c.ShouldBindJSON(&user)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -71,30 +65,30 @@ func Login(c *gin.Context) {
 	})
 }
 
-func Register(c *gin.Context) {
+func (a *AuthApi) Register(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "register",
 	})
 }
 
-func Logout(c *gin.Context) {
+func (a *AuthApi) Logout(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "logout",
 	})
 }
 
-func ForgetPassword(c *gin.Context) {
+func (a *AuthApi) ForgetPassword(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "ForgetPassword"})
 }
 
-func ResetPassword(c *gin.Context) {
+func (a *AuthApi) ResetPassword(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "ResetPassword"})
 }
 
-func GetEmailCaptcha(c *gin.Context) {
+func (a *AuthApi) GetEmailCaptcha(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "GetEmailCaptcha"})
 }
 
-func GetSmsCaptcha(c *gin.Context) {
+func (a *AuthApi) GetSmsCaptcha(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "GetSmsCaptcha"})
 }

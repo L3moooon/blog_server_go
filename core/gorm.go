@@ -1,15 +1,20 @@
-package utils
+package core
 
 import (
-	"blog_backend_go/model"
+	"blog_backend_go/internal/model"
 	"log"
 
-	"gorm.io/gorm"
+	"blog_backend_go/global"
 )
 
 // AutoMigrate 执行所有数据库表的自动迁移
-func AutoMigrate(db *gorm.DB) {
-	err := db.AutoMigrate(
+func AutoMigrate() {
+	if global.DB == nil {
+		log.Println("⚠️ 数据库连接未初始化，跳过自动迁移")
+		return
+	}
+
+	err := global.DB.AutoMigrate(
 		&model.Article{},
 		&model.ArticleComment{},
 		&model.ArticleLike{},
@@ -28,7 +33,7 @@ func AutoMigrate(db *gorm.DB) {
 		&model.WebVisit{},
 	)
 	if err != nil {
-		log.Fatalf("❌ 数据库自动迁移失败: %v", err)
+		log.Fatalf("❌ 数据库自动迁移/同步失败: %v", err)
 	}
-	log.Println("✅ 数据库表结构迁移/同步成功")
+	log.Println("✅ 数据库模型自动同步成功")
 }

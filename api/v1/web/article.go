@@ -6,31 +6,34 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetArticle(c *gin.Context) {
+type ArticleApi struct {
+}
+
+func (s *ArticleApi) GetArticle(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "get article list",
 	})
 }
 
-func GetAllComments(c *gin.Context) {
+func (s *ArticleApi) GetAllComments(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "get article",
 	})
 }
 
-func View(c *gin.Context) {
+func (s *ArticleApi) View(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "create article",
 	})
 }
 
-func Comment(c *gin.Context) {
+func (s *ArticleApi) Comment(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "update article",
 	})
 }
 
-func DelComment(c *gin.Context) {
+func (s *ArticleApi) DelComment(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "delete article",
 	})
