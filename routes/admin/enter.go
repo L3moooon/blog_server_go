@@ -22,6 +22,7 @@ var (
 	userApi       = api.ApiGroupApp.AdminApiGroup.UserApi
 	statisticsApi = api.ApiGroupApp.AdminApiGroup.StatisticsApi
 	articleApi    = api.ApiGroupApp.AdminApiGroup.ArticleApi
+	tagApi        = api.ApiGroupApp.AdminApiGroup.TagApi
 	commentApi    = api.ApiGroupApp.AdminApiGroup.CommentApi
 	messageApi    = api.ApiGroupApp.AdminApiGroup.MessageApi
 	friendshipApi = api.ApiGroupApp.AdminApiGroup.FriendshipApi

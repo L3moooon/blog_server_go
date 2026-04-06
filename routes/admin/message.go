@@ -9,10 +9,10 @@ type MessageRouter struct{}
 var MessageRouterApp = new(MessageRouter)
 
 func (s *MessageRouter) InitMessageRouter(Router *gin.RouterGroup) {
-	message := Router.Group("/message")
+	message := Router.Group("message")
 	{
-		message.GET("/getMessageLists", messageApi.GetMessageList)
-		message.DELETE("/deleteMessage", messageApi.DeleteMessage)
+		message.GET("/", messageApi.GetMessage)
+		message.DELETE("/", messageApi.DeleteMessage)
 	}
 
 }

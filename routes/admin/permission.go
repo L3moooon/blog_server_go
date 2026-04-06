@@ -9,12 +9,12 @@ type PermissionRouter struct{}
 var PermissionRouterApp = new(PermissionRouter)
 
 func (s *PermissionRouter) InitPermissionRouter(Router *gin.RouterGroup) {
-	permission := Router.Group("/permission")
+	permission := Router.Group("permission")
 	{
-		permission.GET("/getPermissionList", permissionApi.GetPermissionList)
-		permission.POST("/addPermission", permissionApi.AddPermission)
-		permission.PUT("/updatePermission", permissionApi.UpdatePermission)
-		permission.DELETE("/deletePermission", permissionApi.DeletePermission)
+		permission.GET("/", permissionApi.GetPermission)
+		permission.POST("/", permissionApi.AddPermission)
+		permission.PUT("/", permissionApi.UpdatePermission)
+		permission.DELETE("/", permissionApi.DeletePermission)
 	}
 
 }

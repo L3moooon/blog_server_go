@@ -1,8 +1,8 @@
 package service
 
 import (
-	"blog_backend_go/services/admin"
-	"blog_backend_go/services/web"
+	"blog_backend_go/services/handler/admin"
+	"blog_backend_go/services/handler/web"
 )
 
 var ServiceGroupApp = new(ServiceGroup)

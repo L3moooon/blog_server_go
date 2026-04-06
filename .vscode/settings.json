@@ -16,5 +16,24 @@
     "--enable=all",
     "--disable=unused", // 可关闭一些无关的检测规则
     "--fix" // 允许自动修复
-  ]
+  ],
+  "workbench.colorCustomizations": {
+    // 🌟 核心：已激活标签页背景色（你要的重点！）
+    "tab.activeBackground": "#2c3e50",
+    // 已激活标签页文字颜色（增强对比度）
+    "tab.activeForeground": "#ffffff",
+    // 已激活标签页边框（可选，加个顶边更明显）
+    "tab.activeBorderTop": "#007acc",
+    // 已激活标签页右侧边框（可选）
+    "tab.activeBorder": "#007acc"
+
+    // 未激活标签页背景色（和激活页拉开差距）
+    // "tab.inactiveBackground": "#1e293b",
+    // 未激活标签页文字颜色（弱化）
+    // "tab.inactiveForeground": "#94a3b8",
+
+    // 标签栏整体背景（可选，统一风格）
+    // "tab.border": "#2d3748",
+    // "editorGroupHeader.tabsBackground": "#1a202c"
+  }
 }

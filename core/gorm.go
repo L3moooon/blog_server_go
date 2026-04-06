@@ -1,10 +1,10 @@
 package core
 
 import (
-	"blog_backend_go/internal/model"
 	"log"
 
 	"blog_backend_go/global"
+	"blog_backend_go/model"
 )
 
 // AutoMigrate 执行所有数据库表的自动迁移

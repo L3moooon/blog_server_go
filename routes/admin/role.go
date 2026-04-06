@@ -11,10 +11,10 @@ var RoleRouterApp = new(RoleRouter)
 func (s *RoleRouter) InitRoleRouter(Router *gin.RouterGroup) {
 	role := Router.Group("role")
 	{
-		role.GET("/getRoleList", roleApi.GetRoleList)
-		role.POST("/addRole", roleApi.AddRole)
-		role.PUT("/updateRole", roleApi.UpdateRole)
-		role.DELETE("/deleteRole", roleApi.DeleteRole)
+		role.GET("/", roleApi.GetRole)
+		role.POST("/", roleApi.AddRole)
+		role.PUT("/", roleApi.UpdateRole)
+		role.DELETE("/", roleApi.DeleteRole)
 	}
 
 }

@@ -11,12 +11,10 @@ var ArticleRouterApp = new(ArticleRouter)
 func (s *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup) {
 	article := Router.Group("/article")
 	{
-		article.GET("/getArticleList", articleApi.GetArticleList)
-		article.POST("/addArticle", articleApi.AddArticle)
-		article.PUT("/updateArticle", articleApi.UpdateArticle)
-		article.DELETE("/deleteArticle", articleApi.DeleteArticle)
-		article.POST("/addTag", articleApi.AddTag)
-		article.DELETE("/deleteTag", articleApi.DeleteTag)
+		article.GET("/", articleApi.GetArticle)
+		article.POST("/", articleApi.AddArticle)
+		article.PUT("/", articleApi.UpdateArticle)
+		article.DELETE("/", articleApi.DeleteArticle)
 	}
 
 }
