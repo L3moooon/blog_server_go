@@ -54,6 +54,6 @@ func InitRouter() *gin.Engine {
 	}
 	global.ROUTERS = Router.Routes()
 
-	global.LOG.Info("router register success")
+	global.LOG.Info("路由注册成功")
 	return Router
 }

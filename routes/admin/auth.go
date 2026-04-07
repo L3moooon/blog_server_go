@@ -17,7 +17,6 @@ func (s *AuthRouter) InitAuthRouter(Router *gin.RouterGroup) {
 		auth.POST("/resetPassword", authApi.ResetPassword)
 		auth.POST("/getEmailCaptcha", authApi.GetEmailCaptcha)
 		auth.POST("/getSmsCaptcha", authApi.GetSmsCaptcha)
-		auth.PUT("/update", authApi.UpdateInfo)
 	}
 
 }

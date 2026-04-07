@@ -2,17 +2,19 @@ package initialize
 
 import (
 	"blog_backend_go/global"
+	"log"
 
 	"gopkg.in/gomail.v2"
 )
 
 func InitEmail() *gomail.Dialer {
-	cfg := global.CONFIG.Email
+	config := global.CONFIG.Email
 	instance := gomail.NewDialer(
-		cfg.Host,
-		cfg.Port,
-		cfg.AuthUser,
-		cfg.AuthPass,
+		config.Host,
+		config.Port,
+		config.AuthUser,
+		config.AuthPass,
 	)
+	log.Println("邮箱服务初始化成功")
 	return instance
 }

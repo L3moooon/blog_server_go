@@ -24,9 +24,9 @@ func (a *AuthApi) Register(c *gin.Context) {
 
 	// 字段校验
 	var verifyRule = utils.Rules{
-		"Username": {utils.NotEmpty()},                                            // 用户名不能为空
-		"Account":  {utils.NotEmpty(), utils.RegexpMatch("^[a-zA-Z0-9_]{3,15}$")}, // 账号不能为空
-		"Password": {utils.NotEmpty(), utils.RegexpMatch("^[a-zA-Z0-9_]{6,18}$")}, // 密码不能为空
+		"Username": {utils.NotEmpty()}, // 用户名不能为空
+		"Account":  {utils.NotEmpty()}, // 账号不能为空
+		"Password": {utils.NotEmpty()}, // 密码不能为空
 	}
 	err = utils.Verify(req, verifyRule)
 	if err != nil {
@@ -53,7 +53,6 @@ func (a *AuthApi) Login(c *gin.Context) {
 	// 字段校验
 	var verifyRule = utils.Rules{
 		"LoginType": {utils.NotEmpty()}, // 登录类型不能为空
-		"Account":   {utils.NotEmpty()}, // 账号不能为空
 	}
 	err = utils.Verify(req, verifyRule)
 	if err != nil {
@@ -67,12 +66,12 @@ func (a *AuthApi) Login(c *gin.Context) {
 		UserAgent:    c.GetHeader("User-Agent"),
 	})
 	if err != nil {
-		global.LOG.Error("登陆失败! 用户名不存在或者密码错误!", zap.Error(err))
-		response.FailWithMessage(c, "用户名不存在或者密码错误")
+		global.LOG.Error("登录失败!", zap.Error(err))
+		response.FailWithMessage(c, err.Error())
 		return
 	}
-	if !user.Status {
-		global.LOG.Error("登陆失败! 用户被禁止登录!")
+	if user.Status == false {
+		global.LOG.Error("登录失败! 用户被禁止登录!")
 		response.FailWithMessage(c, "用户被禁止登录")
 		return
 	}
@@ -86,22 +85,76 @@ func (a *AuthApi) GetEmailCaptcha(c *gin.Context) {
 		response.FailWithMessage(c, err.Error())
 		return
 	}
-	user, err := authService.GetEmailCaptcha(req)
+	// 字段校验
+	var verifyRule = utils.Rules{
+		"Email": {utils.NotEmpty()}, // 邮箱不能为空
+	}
+	err = utils.Verify(req, verifyRule)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	err = authService.GetEmailCaptcha(req)
 	if err != nil {
 		global.LOG.Error("获取邮箱验证码失败!", zap.Error(err))
 		response.FailWithMessage(c, "获取邮箱验证码失败")
 		return
 	}
-	response.OkWithDetailed(c, user, "获取邮箱验证码成功")
+	response.OkWithMessage(c, "获取邮箱验证码成功")
 }
 
 func (a *AuthApi) GetSmsCaptcha(c *gin.Context) {
+	var req auth.SmsCaptchaRequest
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	// 字段校验
+	var verifyRule = utils.Rules{
+		"Phone": {utils.NotEmpty()}, // 手机号不能为空
+	}
+	err = utils.Verify(req, verifyRule)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	err = authService.GetSmsCaptcha(req)
+	if err != nil {
+		global.LOG.Error("获取短信验证码失败!", zap.Error(err))
+		response.FailWithMessage(c, "获取短信验证码失败")
+		return
+	}
+	response.OkWithMessage(c, "获取短信验证码成功")
 }
 
 func (a *AuthApi) Logout(c *gin.Context) {
 }
 
 func (a *AuthApi) ForgetPassword(c *gin.Context) {
+	var req auth.EmailCaptchaRequest
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	// 字段校验
+	var verifyRule = utils.Rules{
+		"Email": {utils.NotEmpty()}, // 邮箱不能为空
+	}
+	err = utils.Verify(req, verifyRule)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+
+	err = authService.ForgetPassword(req)
+	if err != nil {
+		global.LOG.Error("忘记密码失败!", zap.Error(err))
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	response.Ok(c)
 }
 
 func (a *AuthApi) ResetPassword(c *gin.Context) {
