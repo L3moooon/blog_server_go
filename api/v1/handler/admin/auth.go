@@ -4,8 +4,8 @@ import (
 	"blog_backend_go/api/v1/dto/admin/auth"
 	"blog_backend_go/api/v1/dto/common/response"
 	"blog_backend_go/global"
-	"blog_backend_go/pkg/utils"
 	"blog_backend_go/services/dto/admin"
+	"blog_backend_go/utils"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -60,7 +60,7 @@ func (a *AuthApi) Login(c *gin.Context) {
 		return
 	}
 
-	user, err := authService.Login(admin.LoginParam{
+	data, err := authService.Login(admin.LoginParam{
 		LoginRequest: req,
 		Ip:           c.ClientIP(),
 		UserAgent:    c.GetHeader("User-Agent"),
@@ -70,12 +70,12 @@ func (a *AuthApi) Login(c *gin.Context) {
 		response.FailWithMessage(c, err.Error())
 		return
 	}
-	if user.Status == false {
+	if data.User.Status == false {
 		global.LOG.Error("登录失败! 用户被禁止登录!")
 		response.FailWithMessage(c, "用户被禁止登录")
 		return
 	}
-	response.OkWithDetailed(c, user, "登录成功")
+	response.OkWithDetailed(c, data, "登录成功")
 }
 
 func (a *AuthApi) GetEmailCaptcha(c *gin.Context) {

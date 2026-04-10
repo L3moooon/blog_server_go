@@ -8,4 +8,5 @@ type System struct {
 	RouterPrefix       string `mapstructure:"router-prefix" json:"router-prefix" yaml:"router-prefix"`
 	UseStrictAuth      bool   `mapstructure:"use-strict-auth" json:"use-strict-auth" yaml:"use-strict-auth"`                // 使用树形角色分配模式
 	DisableAutoMigrate bool   `mapstructure:"disable-auto-migrate" json:"disable-auto-migrate" yaml:"disable-auto-migrate"` // 自动迁移数据库表结构，生产环境建议设为false，手动迁移
+	UseMultiLogin      bool   `mapstructure:"use-multi-login" json:"use-multi-login" yaml:"use-multi-login"`                // 是否允许同一账号多地登录
 }

@@ -1,12 +1,15 @@
 {
-  "go.useLanguageServer": true,
-
   "editor.formatOnSave": true,
   // "editor.tabSize": 2,
   // "editor.insertSpaces": true,
 
   "go.importOnsave": true,
   "go.formatTool": "goimports",
+  "go.toolsManagement.autoUpdate": true,
+  "go.useLanguageServer": true,
+  "gopls": {
+    "ui.semanticTokens": true
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
     "source.organizeImports": "explicit"
@@ -26,14 +29,5 @@
     "tab.activeBorderTop": "#007acc",
     // 已激活标签页右侧边框（可选）
     "tab.activeBorder": "#007acc"
-
-    // 未激活标签页背景色（和激活页拉开差距）
-    // "tab.inactiveBackground": "#1e293b",
-    // 未激活标签页文字颜色（弱化）
-    // "tab.inactiveForeground": "#94a3b8",
-
-    // 标签栏整体背景（可选，统一风格）
-    // "tab.border": "#2d3748",
-    // "editorGroupHeader.tabsBackground": "#1a202c"
   }
 }
