@@ -8,6 +8,13 @@ const (
 	LoginTypePhone   LoginType = "phone"   // 手机号登录
 )
 
+// 注册请求
+type RegisterRequest struct {
+	Account  string `json:"account"`
+	Password string `json:"password"`
+	Username string `json:"username"`
+}
+
 // 登录请求
 type LoginRequest struct {
 	LoginType LoginType `json:"login_type"`
@@ -28,9 +35,9 @@ type SmsCaptchaRequest struct {
 	Phone string `json:"phone"`
 }
 
-// 注册请求
-type RegisterRequest struct {
-	Account  string `json:"account"`
+// 重置密码请求
+type ResetPasswordRequest struct {
+	Email    string `json:"email"`
+	Code     string `json:"code"`
 	Password string `json:"password"`
-	Username string `json:"username"`
 }

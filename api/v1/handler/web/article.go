@@ -9,7 +9,7 @@ import (
 type ArticleApi struct {
 }
 
-func (s *ArticleApi) GetArticle(c *gin.Context) {
+func (s *ArticleApi) GetArticleList(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "get article list",
 	})

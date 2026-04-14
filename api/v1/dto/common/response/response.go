@@ -6,6 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+type PageInfo struct {
+	Page     int   `json:"page" form:"page"`         // 页码
+	PageSize int   `json:"pageSize" form:"pageSize"` // 每页数量
+	Total    int64 `json:"total"`                    // 总数
+}
+
 // 全局统一返回结构体
 type Response struct {
 	Code int         `json:"code"` // 业务码：0成功，非0失败

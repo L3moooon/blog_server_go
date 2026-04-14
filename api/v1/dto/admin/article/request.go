@@ -1,31 +1,34 @@
-package auth
+package article
 
+import "blog_backend_go/api/v1/dto/common/request"
 
-// 登录请求
+// 文章列表请求
 type ListRequest struct {
-	Page     int    `json:"page"`
-	PageSize int    `json:"page_size"`
+	request.PageInfo
+	request.SearchInfo
+	Sort []request.SortInfo `json:"sort"`
+}
+
+// 文章添加请求
+type AddRequest struct {
 	Title    string `json:"title"`
-	Email     string    `json:"email"`
-	Phone     string    `json:"phone"`
-	Code      string    `json:"code"`
+	Cover    string `json:"cover"`
+	Abstract string `json:"abstract"`
+	Content  string `json:"content"`
+	Tags     []int  `json:"tags"`
 }
 
-// 获取邮箱验证码请求
-type EmailCaptchaRequest struct {
-	Email string `json:"email"`
+// 文章更新请求
+type UpdateRequest struct {
+	ID       string `json:"id"`
+	Title    string `json:"title"`
+	Cover    string `json:"cover"`
+	Abstract string `json:"abstract"`
+	Content  string `json:"content"`
+	Tags     []int  `json:"tags"`
 }
 
-// 获取手机验证码请求
-type SmsCaptchaRequest struct {
-	Phone string `json:"phone"`
-}
-
-// 注册请求
-type RegisterRequest struct {
-	Account  string `json:"account"`
-	Password string `json:"password"`
-	Email    string `json:"email"`
-	Phone    string `json:"phone"`
-	Code     string `json:"code"`
+// 文章删除请求
+type DeleteRequest struct {
+	ID string `json:"id"`
 }

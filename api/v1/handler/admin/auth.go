@@ -60,7 +60,7 @@ func (a *AuthApi) Login(c *gin.Context) {
 		return
 	}
 
-	data, err := authService.Login(admin.LoginParam{
+	res, err := authService.Login(admin.LoginParam{
 		LoginRequest: req,
 		Ip:           c.ClientIP(),
 		UserAgent:    c.GetHeader("User-Agent"),
@@ -70,12 +70,12 @@ func (a *AuthApi) Login(c *gin.Context) {
 		response.FailWithMessage(c, err.Error())
 		return
 	}
-	if data.User.Status == false {
+	if res.User.Status == false {
 		global.LOG.Error("登录失败! 用户被禁止登录!")
 		response.FailWithMessage(c, "用户被禁止登录")
 		return
 	}
-	response.OkWithDetailed(c, data, "登录成功")
+	response.OkWithDetailed(c, res, "登录成功")
 }
 
 func (a *AuthApi) GetEmailCaptcha(c *gin.Context) {
@@ -158,7 +158,29 @@ func (a *AuthApi) ForgetPassword(c *gin.Context) {
 }
 
 func (a *AuthApi) ResetPassword(c *gin.Context) {
-}
+	var req auth.ResetPasswordRequest
+	err := c.ShouldBindJSON(&req)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	// 字段校验
+	var verifyRule = utils.Rules{
+		"Email":    {utils.NotEmpty()}, // 邮箱不能为空
+		"Code":     {utils.NotEmpty()}, // 验证码不能为空
+		"Password": {utils.NotEmpty()}, // 密码不能为空
+	}
+	err = utils.Verify(req, verifyRule)
+	if err != nil {
+		response.FailWithMessage(c, err.Error())
+		return
+	}
 
-func (a *AuthApi) UpdateInfo(c *gin.Context) {
+	err = authService.ResetPassword(req)
+	if err != nil {
+		global.LOG.Error("重置密码失败!", zap.Error(err))
+		response.FailWithMessage(c, err.Error())
+		return
+	}
+	response.Ok(c)
 }

@@ -296,18 +296,9 @@ func (s *AuthService) ForgetPassword(u auth.EmailCaptchaRequest) (err error) {
 }
 
 // 忘记密码-重置密码
-func (s *AuthService) ResetPassword(u admin.LoginParam) (err error) {
-	var verifyRule = utils.Rules{
-		"Account":  {utils.NotEmpty()}, // 账号不能为空
-		"Code":     {utils.NotEmpty()}, // 验证码不能为空
-		"Password": {utils.NotEmpty()}, // 新密码不能为空
-	}
-	err = utils.Verify(u, verifyRule)
-	if err != nil {
-		return err
-	}
+func (s *AuthService) ResetPassword(u auth.ResetPasswordRequest) (err error) {
 	//验证验证码
-	redisKey := utils.ResetEmailCaptchaKey(u.Account)
+	redisKey := utils.ResetEmailCaptchaKey(u.Email)
 	code, err := global.REDIS.Get(context.Background(), redisKey).Result()
 	if err != nil {
 		return errors.New("验证码已过期")
@@ -316,7 +307,7 @@ func (s *AuthService) ResetPassword(u admin.LoginParam) (err error) {
 		return errors.New("验证码错误")
 	}
 	//更新密码
-	err = global.DB.Model(&model.SysUser{}).Where("account = ?", u.Account).Update("password", utils.BcryptHash(u.Password)).Error
+	err = global.DB.Model(&model.SysUser{}).Where("account = ?", u.Email).Update("password", utils.BcryptHash(u.Password)).Error
 	if err != nil {
 		return errors.New("更新密码失败")
 	}

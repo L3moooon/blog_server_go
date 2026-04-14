@@ -11,7 +11,7 @@ var ArticleRouterApp = new(ArticleRouter)
 func (s *ArticleRouter) InitArticleRouter(Router *gin.RouterGroup) {
 	article := Router.Group("/article")
 	{
-		article.GET("/", articleApi.GetArticle)
+		article.GET("/", articleApi.GetArticleList)
 		article.POST("/", articleApi.AddArticle)
 		article.PUT("/", articleApi.UpdateArticle)
 		article.DELETE("/", articleApi.DeleteArticle)
